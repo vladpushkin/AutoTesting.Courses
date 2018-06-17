@@ -78,54 +78,45 @@ namespace HomeWorkTask1
             return null;
         }
 
-        //Dispalay list of phrases
-        private static void DisplayPhrases(string[] phrases)
+        //Display available languages
+        private static void DisplayLanguages()
         {
-            if (phrases == null || !phrases.Any())
+            Console.WriteLine("There are the following languages:");
+
+            foreach (var Lang in Enum.GetValues(typeof(Language)))
+                Console.WriteLine($"- {Lang}");
+
+            Console.WriteLine();
+        }
+
+
+
+        //Select language
+        private static Language SelectLanguage()
+        {
+            Console.WriteLine("Select your language!");
+
+            Language selectedLocalLanguage;
+
+            while (!Enum.TryParse(Console.ReadLine(), out selectedLocalLanguage))
             {
-                Console.WriteLine("Somethig went wrong!");
-                return;
+                Console.WriteLine("Invalid innput,try again.");
+            }
+            return selectedLocalLanguage;
+        }
+
+        //Select phrase for the language
+        private static int SelectPhrase(Language language)
+        {
+            Console.WriteLine("Please select a phrase:");
+
+            int selectPhrase;
+            while (!int.TryParse(Console.ReadLine(), out selectPhrase))
+            {
+                Console.WriteLine("Invalid innput,try again.");
             }
 
-            Console.WriteLine(string.Join("\n", phrases));
-        }
-
-        
-
-        //Continue process
-        private static bool ContinueFurther()
-        {
-            Console.WriteLine("Hit w to try again:");
-
-            var SelectedKey = Console.ReadKey().KeyChar;
-            var resumeSelection = SelectedKey.Equals('w');
-
-            return resumeSelection;
-        }
-
-        //Return phrases for selected language
-        public static void Main()
-        {
-            bool resumeSelection;
-
-            do
-            {
-                DisplayLanguages();
-                Console.WriteLine();
-
-                var userTextInput = Console.ReadLine();
-
-                var digitInput = int.Parse(userTextInput);
-                Console.WriteLine();
-
-                var phrases = GetPhrases(digitInput);
-                DisplayPhrases(phrases);
-                Console.WriteLine();
-
-                resumeSelection = ContinueFurther();
-                Console.WriteLine();
-
-            } while (resumeSelection);
+            return selectPhrase;
         }
     }
 }
