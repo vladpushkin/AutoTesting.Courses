@@ -56,26 +56,14 @@ namespace HomeWorkTask1
 
       
 
-        //Locate list of phrases for languages
-        private static string[] GetPhrases(int enumNumber)
-        {
-            foreach (var phrase in Phrases)
-            {
-                if ((int)phrase.Key == enumNumber)
-                {
-                    return phrase.Value;
-                }
-            }
-
-            return null;
-        }
+     
 
         //Display available languages
         private static void DisplayLanguages()
         {
             Console.WriteLine("There are the following languages:");
 
-            foreach (var Lang in Enum.GetValues(typeof(Language)))
+            foreach (var Lang in Enum.GetValues(typeof(Languages)))
                 Console.WriteLine($"- {Lang}");
 
             Console.WriteLine();
@@ -98,7 +86,7 @@ namespace HomeWorkTask1
         }
 
         //Select phrase for the language
-        private static int SelectPhrase(Language language)
+        private static int SelectPhrase(Languages language)
         {
             Console.WriteLine("Please select a phrase:");
 
@@ -135,7 +123,7 @@ namespace HomeWorkTask1
         {
             DisplayLanguages();
             var localLanguage = SelectLanguage();
-            ExistPhrases(localLanguage);
+            SelectPhrase(localLanguage);
             var selectPhrase = SelectPhrase(localLanguage);
             var targetLanguage = SelectLanguage();
             Translate(localLanguage, selectPhrase, targetLanguage);
