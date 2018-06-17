@@ -7,10 +7,50 @@ namespace HomeWorkTask1
     internal static class Program
 
     {
-        public static readonly Dictionary<Languages, string[]> Phrases = new Dictionary<Languages, string[]>
-        {
-            [Languages.English] = new[] { "Good day!", "What's the news?" },
-            [Languages.French] = new[] { "Bonjour!", "Quelles sont les nouvelles?" }
+        internal static readonly Dictionary[][] Phrases = {
+            new[]
+            {
+                new Dictionary
+                {
+                    Language = Language.English,
+                    Text = "Hello!"
+                },
+
+                new Dictionary
+                {
+                    Language = Language.French,
+                    Text = "Bonjour!"
+                }
+            },
+
+            new[]
+            {
+                new Dictionary
+                {
+                    Language = Language.English,
+                    Text = "How are you?"
+                },
+
+                new Dictionary
+                {
+                    Language = Language.French,
+                    Text = "Comment allez-vous?"
+                }
+
+            new[]
+            {
+                new Dictionary
+                {
+                    Language = Language.English,
+                    Text = "Goodbye!"
+                },
+
+                new Dictionary
+                {
+                    Language = Language.French,
+                    Text = "Au revoir!"
+                },
+            },
         };
 
         //Dispalay list of available languages
@@ -50,6 +90,19 @@ namespace HomeWorkTask1
             Console.WriteLine(string.Join("\n", phrases));
         }
 
+        
+
+        //Continue process
+        private static bool ContinueFurther()
+        {
+            Console.WriteLine("Hit w to try again:");
+
+            var SelectedKey = Console.ReadKey().KeyChar;
+            var resumeSelection = SelectedKey.Equals('w');
+
+            return resumeSelection;
+        }
+
         //Return phrases for selected language
         public static void Main()
         {
@@ -73,17 +126,6 @@ namespace HomeWorkTask1
                 Console.WriteLine();
 
             } while (resumeSelection);
-        }
-
-        //Continue process
-        private static bool ContinueFurther()
-        {
-            Console.WriteLine("Hit w to try again:");
-
-            var SelectedKey = Console.ReadKey().KeyChar;
-            var resumeSelection = SelectedKey.Equals('w');
-
-            return resumeSelection;
         }
     }
 }
