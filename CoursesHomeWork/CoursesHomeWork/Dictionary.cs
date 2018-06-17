@@ -1,50 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 namespace HomeWorkTask1
 {
-    internal enum Languages
-    {
-        English,
-        German,
-        Italian,
-        Swedish
-    }
-
     internal class Dictionary
     {
-        Dictionary<Languages, string[]> Text = new Dictionary<Languages, string[]> {
-            {
-                Languages.English,
-                new[] {
-                    "Good afternoon",
-                    "How are you?",
-                    "Goodbye"
-              }
-            },
-            {
-                Languages.German,
-                new[] {
-                    "guten Tag",
-                    "Wie sind Sie?",
-                    "Abschied"
-                }
-            },
-            {
-                Languages.Italian,
-                new[] {
-                    "Buon pomeriggio",
-                    "Come stai?",
-                    "Addio"
-                }
-            },
-            {
-                Languages.Swedish,
-                new[] {
-                    "God eftermiddag",
-                    "Hur är du?",
-                    "Farväl"
-                }
-            }
-        };
+        public Languages Language { get; set; }
+        public string Text { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Language.ToString()}: {Text}";
+        }
+
     }
 }

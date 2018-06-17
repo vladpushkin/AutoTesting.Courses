@@ -7,10 +7,10 @@ namespace HomeWorkTask1
     internal static class Program
 
     {
-        public static readonly Dictionary<Language, string[]> Phrases = new Dictionary<Language, string[]>
+        public static readonly Dictionary<Languages, string[]> Phrases = new Dictionary<Languages, string[]>
         {
-            [Language.English] = new[] { "Good day!", "What's the news?" },
-            [Language.French] = new[] { "Bonjour!", "Quelles sont les nouvelles?" }
+            [Languages.English] = new[] { "Good day!", "What's the news?" },
+            [Languages.French] = new[] { "Bonjour!", "Quelles sont les nouvelles?" }
         };
 
         //Dispalay list of available languages
