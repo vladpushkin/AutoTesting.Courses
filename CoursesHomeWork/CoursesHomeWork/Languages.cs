@@ -2,8 +2,8 @@
 {
     internal enum Languages
     {
-        English = 1,
-        French = 2,
+        English=1,
+        French =2
 
     }
 }

@@ -12,13 +12,13 @@ namespace HomeWorkTask1
             {
                 new Dictionary
                 {
-                    Language = Language.English,
+                    Language = Languages.English,
                     Text = "Hello!"
                 },
 
                 new Dictionary
                 {
-                    Language = Language.French,
+                    Language = Languages.French,
                     Text = "Bonjour!"
                 }
             },
@@ -27,42 +27,34 @@ namespace HomeWorkTask1
             {
                 new Dictionary
                 {
-                    Language = Language.English,
+                    Language = Languages.English,
                     Text = "How are you?"
                 },
 
                 new Dictionary
                 {
-                    Language = Language.French,
+                    Language = Languages.French,
                     Text = "Comment allez-vous?"
                 }
+            },
 
             new[]
             {
                 new Dictionary
                 {
-                    Language = Language.English,
+                    Language = Languages.English,
                     Text = "Goodbye!"
                 },
 
                 new Dictionary
                 {
-                    Language = Language.French,
+                    Language = Languages.French,
                     Text = "Au revoir!"
-                },
+                }
             },
         };
 
-        //Dispalay list of available languages
-        private static void DisplayLanguages()
-        {
-            Console.WriteLine("Select language to view phrases:");
-
-            foreach (var language in Phrases.Keys)
-            {
-                Console.WriteLine($"{(int)language} - {language}");
-            }
-        }
+      
 
         //Locate list of phrases for languages
         private static string[] GetPhrases(int enumNumber)
@@ -92,15 +84,15 @@ namespace HomeWorkTask1
 
 
         //Select language
-        private static Language SelectLanguage()
+        private static Languages SelectLanguage()
         {
             Console.WriteLine("Select your language!");
 
-            Language selectedLocalLanguage;
+            Languages selectedLocalLanguage;
 
             while (!Enum.TryParse(Console.ReadLine(), out selectedLocalLanguage))
             {
-                Console.WriteLine("Invalid innput,try again.");
+                Console.WriteLine("Invalid input,try again.");
             }
             return selectedLocalLanguage;
         }
@@ -110,13 +102,45 @@ namespace HomeWorkTask1
         {
             Console.WriteLine("Please select a phrase:");
 
-            int selectPhrase;
-            while (!int.TryParse(Console.ReadLine(), out selectPhrase))
+            int selectedPhrase;
+            while (!int.TryParse(Console.ReadLine(), out selectedPhrase))
             {
-                Console.WriteLine("Invalid innput,try again.");
+                Console.WriteLine("Invalid input,try again.");
             }
 
-            return selectPhrase;
+            return selectedPhrase;
+        }
+
+        //Translate 
+        private static void Translate(Languages localLanguage, int phrase, Languages targetLanguage)
+        {
+            Dictionary localPhrase = null, targetPhrase = null;
+            foreach (var phr in Phrases[phrase - 1])
+            {
+                if (phr.Language == localLanguage)
+                {
+                    localPhrase = phr;
+                }
+
+                if (phr.Language == targetLanguage)
+                {
+                    targetPhrase = phr;
+                }
+            }
+            Console.WriteLine($"Original phrase:\n{localPhrase}");
+            Console.WriteLine($"Translated phrase:\n{targetPhrase}");
+        }
+
+        public static void Main()
+        {
+            DisplayLanguages();
+            var localLanguage = SelectLanguage();
+            ExistPhrases(localLanguage);
+            var selectPhrase = SelectPhrase(localLanguage);
+            var targetLanguage = SelectLanguage();
+            Translate(localLanguage, selectPhrase, targetLanguage);
+
+            Console.ReadKey();
         }
     }
 }
