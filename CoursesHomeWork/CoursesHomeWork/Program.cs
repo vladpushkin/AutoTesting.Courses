@@ -5,8 +5,21 @@ using System.Linq;
 namespace HomeWorkTask1
 {
     internal static class Program
-
     {
+        private static void Main()
+        {
+            DisplayLanguages();
+            Console.WriteLine();
+            var localLanguage = SelectLanguage();
+            DisplayPhrases(localLanguage);
+            Console.WriteLine();
+            var selectPhrase = SelectPhrase(localLanguage);
+            var targetLanguage = SelectLanguage();
+            Translate(localLanguage, selectPhrase, targetLanguage);
+
+            Console.ReadKey();
+        }
+        //Difine phrases for languges
         internal static readonly Dictionary[][] Phrases = {
             new[]
             {
@@ -51,12 +64,8 @@ namespace HomeWorkTask1
                     Language = Languages.French,
                     Text = "Au revoir!"
                 }
-            },
+            }
         };
-
-      
-
-     
 
         //Display available languages
         private static void DisplayLanguages()
@@ -68,8 +77,6 @@ namespace HomeWorkTask1
 
             Console.WriteLine();
         }
-
-
 
         //Select language
         private static Languages SelectLanguage()
@@ -85,10 +92,27 @@ namespace HomeWorkTask1
             return selectedLocalLanguage;
         }
 
-        //Select phrase for the language
+
+        //Display phrases for the language
+        private static void DisplayPhrases(Languages language)
+        {
+            Console.WriteLine("There are following phrases:");
+            for (int i = 0; i < Phrases.Length; i++)
+            {
+                foreach (var phrase in Phrases[i])
+                {
+                    if (phrase.Language == language)
+                    {
+                        Console.WriteLine($"{i + 1}) {phrase}");
+                    }
+                }
+            }
+        }
+
+        //Select a phrase for the language
         private static int SelectPhrase(Languages language)
         {
-            Console.WriteLine("Please select a phrase:");
+            Console.WriteLine("Select a phrase to translate:");
 
             int selectedPhrase;
             while (!int.TryParse(Console.ReadLine(), out selectedPhrase))
@@ -99,7 +123,7 @@ namespace HomeWorkTask1
             return selectedPhrase;
         }
 
-        //Translate 
+        //Translate selected phrase to selected language
         private static void Translate(Languages localLanguage, int phrase, Languages targetLanguage)
         {
             Dictionary localPhrase = null, targetPhrase = null;
@@ -117,18 +141,6 @@ namespace HomeWorkTask1
             }
             Console.WriteLine($"Original phrase:\n{localPhrase}");
             Console.WriteLine($"Translated phrase:\n{targetPhrase}");
-        }
-
-        public static void Main()
-        {
-            DisplayLanguages();
-            var localLanguage = SelectLanguage();
-            SelectPhrase(localLanguage);
-            var selectPhrase = SelectPhrase(localLanguage);
-            var targetLanguage = SelectLanguage();
-            Translate(localLanguage, selectPhrase, targetLanguage);
-
-            Console.ReadKey();
-        }
+        }  
     }
 }
