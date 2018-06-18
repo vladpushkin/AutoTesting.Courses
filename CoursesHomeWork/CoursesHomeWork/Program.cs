@@ -125,17 +125,27 @@ namespace HomeWorkTask1
         private static void Translate(Languages localLanguage, int phrase, Languages targetLanguage)
         {
             Dictionary localPhrase = null, targetPhrase = null;
-            foreach (var phr in Phrases[phrase - 1])
-            {
-                if (phr.Language == localLanguage)
+            try {
+                foreach (var phr in Phrases[phrase - 1])
                 {
-                    localPhrase = phr;
-                }
+                    if (phr.Language == localLanguage)
+                    {
+                        localPhrase = phr;
+                    }
 
-                if (phr.Language == targetLanguage)
-                {
-                    targetPhrase = phr;
+                    if (phr.Language == targetLanguage)
+                    {
+                        targetPhrase = phr;
+                    }
                 }
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("Out of range!");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Format Exception!");
             }
             Console.WriteLine($"Original phrase:\n{localPhrase}");
             Console.WriteLine($"Translated phrase:\n{targetPhrase}");
