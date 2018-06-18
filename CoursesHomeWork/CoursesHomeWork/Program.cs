@@ -1,89 +1,154 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace HomeWorkTask1
 {
     internal static class Program
-
     {
-        public static readonly Dictionary<Language, string[]> Phrases = new Dictionary<Language, string[]>
+        private static void Main()
         {
-            [Language.English] = new[] { "Good day!", "What's the news?" },
-            [Language.French] = new[] { "Bonjour!", "Quelles sont les nouvelles?" }
-        };
+            DisplayLanguages();
+            Console.WriteLine();
+            var localLanguage = SelectLanguage();
+            DisplayPhrases(localLanguage);
+            Console.WriteLine();
+            var selectPhrase = SelectPhrase(localLanguage);
+            var targetLanguage = SelectLanguage();
+            Translate(localLanguage, selectPhrase, targetLanguage);
 
-        //Dispalay list of available languages
-        private static void DisplayLanguages()
-        {
-            Console.WriteLine("Select language to view phrases:");
-
-            foreach (var language in Phrases.Keys)
-            {
-                Console.WriteLine($"{(int)language} - {language}");
-            }
+            Console.ReadKey();
         }
-
-        //Locate list of phrases for languages
-        private static string[] GetPhrases(int enumNumber)
-        {
-            foreach (var phrase in Phrases)
+        //Difine phrases for languges
+        internal static readonly Dictionary[][] Phrases = {
+            new[]
             {
-                if ((int)phrase.Key == enumNumber)
+                new Dictionary
                 {
-                    return phrase.Value;
+                    Language = Languages.English,
+                    Text = "Hello!"
+                },
+
+                new Dictionary
+                {
+                    Language = Languages.French,
+                    Text = "Bonjour!"
+                }
+            },
+
+            new[]
+            {
+                new Dictionary
+                {
+                    Language = Languages.English,
+                    Text = "How are you?"
+                },
+
+                new Dictionary
+                {
+                    Language = Languages.French,
+                    Text = "Comment allez-vous?"
+                }
+            },
+
+            new[]
+            {
+                new Dictionary
+                {
+                    Language = Languages.English,
+                    Text = "Goodbye!"
+                },
+
+                new Dictionary
+                {
+                    Language = Languages.French,
+                    Text = "Au revoir!"
                 }
             }
+        };
 
-            return null;
+        //Display available languages
+        private static void DisplayLanguages()
+        {
+            Console.WriteLine("There are the following languages:");
+
+            foreach (var Lang in Enum.GetValues(typeof(Languages)))
+                Console.WriteLine($"- {Lang}");
+
+            Console.WriteLine();
         }
 
-        //Dispalay list of phrases
-        private static void DisplayPhrases(string[] phrases)
+        //Select language
+        private static Languages SelectLanguage()
         {
-            if (phrases == null || !phrases.Any())
+            Console.WriteLine("Select your language!");
+
+            Languages selectedLocalLanguage;
+
+            while (!Enum.TryParse(Console.ReadLine(), out selectedLocalLanguage))
             {
-                Console.WriteLine("Somethig went wrong!");
-                return;
+                Console.WriteLine("Invalid input,try again.");
+            }
+            return selectedLocalLanguage;
+        }
+
+
+        //Display phrases for the language
+        private static void DisplayPhrases(Languages language)
+        {
+            Console.WriteLine("There are following phrases:");
+            for (int i = 0; i < Phrases.Length; i++)
+            {
+                foreach (var phrase in Phrases[i])
+                {
+                    if (phrase.Language == language)
+                    {
+                        Console.WriteLine($"{i + 1}) {phrase}");
+                    }
+                }
+            }
+        }
+
+        //Select a phrase for the language
+        private static int SelectPhrase(Languages language)
+        {
+            Console.WriteLine("Select a phrase to translate:");
+
+            int selectedPhrase;
+            while (!int.TryParse(Console.ReadLine(), out selectedPhrase))
+            {
+                Console.WriteLine("Invalid input,try again.");
             }
 
-            Console.WriteLine(string.Join("\n", phrases));
+            return selectedPhrase;
         }
 
-        //Return phrases for selected language
-        public static void Main()
+        //Translate selected phrase to selected language
+        private static void Translate(Languages localLanguage, int phrase, Languages targetLanguage)
         {
-            bool resumeSelection;
+            Dictionary localPhrase = null, targetPhrase = null;
+            try {
+                foreach (var phr in Phrases[phrase - 1])
+                {
+                    if (phr.Language == localLanguage)
+                    {
+                        localPhrase = phr;
+                    }
 
-            do
+                    if (phr.Language == targetLanguage)
+                    {
+                        targetPhrase = phr;
+                    }
+                }
+            }
+            catch (IndexOutOfRangeException)
             {
-                DisplayLanguages();
-                Console.WriteLine();
-
-                var userTextInput = Console.ReadLine();
-
-                var digitInput = int.Parse(userTextInput);
-                Console.WriteLine();
-
-                var phrases = GetPhrases(digitInput);
-                DisplayPhrases(phrases);
-                Console.WriteLine();
-
-                resumeSelection = ContinueFurther();
-                Console.WriteLine();
-
-            } while (resumeSelection);
-        }
-
-        //Continue process
-        private static bool ContinueFurther()
-        {
-            Console.WriteLine("Hit w to try again:");
-
-            var SelectedKey = Console.ReadKey().KeyChar;
-            var resumeSelection = SelectedKey.Equals('w');
-
-            return resumeSelection;
-        }
+                Console.WriteLine("Out of range!");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Format Exception!");
+            }
+            Console.WriteLine($"Original phrase:\n{localPhrase}");
+            Console.WriteLine($"Translated phrase:\n{targetPhrase}");
+        }  
     }
 }
