@@ -9,7 +9,7 @@ namespace HomeWorkTask1
 
         public override string ToString()
         {
-            return $"{Language.ToString()}: {Text}";
+            return $"{Language.ToString()}:";
         }
 
     }
