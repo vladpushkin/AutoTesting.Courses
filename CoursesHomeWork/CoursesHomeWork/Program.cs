@@ -15,7 +15,6 @@ namespace HomeWorkTask1
             var selectPhrase = SelectPhrase();
             var targetLanguage = SelectLanguage();
             Translate(localLanguage, selectPhrase, targetLanguage);
-
             Console.ReadKey();
         }
 
@@ -75,10 +74,6 @@ namespace HomeWorkTask1
             {
                 Console.WriteLine($"- {c}");
             }
-
-            //foreach (var Lang in Enum.GetValues(typeof(Languages)))
-            //    Console.WriteLine($"- {Lang}");
-
             Console.WriteLine();
         }
 
@@ -96,13 +91,6 @@ namespace HomeWorkTask1
 
             Console.WriteLine("Invalid input,try again.");
             return SelectLanguage();
-
-            //Languages selectedLocalLanguage;
-
-            //while (!Enum.TryParse(Console.ReadLine(), out selectedLocalLanguage))
-            //{
-            //    Console.WriteLine("Invalid input,try again.");
-            //}
         }
 
         private static void DisplayPhrases(string language)
