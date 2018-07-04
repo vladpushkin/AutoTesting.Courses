@@ -17,7 +17,7 @@ namespace HomeWorkTask1
 
             Console.ReadKey();
         }
-        //Difine phrases for languges
+        
         internal static readonly Dictionary[][] Phrases = {
             new[]
             {
@@ -65,7 +65,7 @@ namespace HomeWorkTask1
             }
         };
 
-        //Display available languages
+        
         private static void DisplayLanguages()
         {
             Console.WriteLine("There are the following languages:");
@@ -76,7 +76,7 @@ namespace HomeWorkTask1
             Console.WriteLine();
         }
 
-        //Select language
+        
         private static Languages SelectLanguage()
         {
             Console.WriteLine("Select your language!");
@@ -91,7 +91,7 @@ namespace HomeWorkTask1
         }
 
 
-        //Display phrases for the language
+        
         private static void DisplayPhrases(Languages language)
         {
             Console.WriteLine("There are following phrases:");
@@ -107,7 +107,8 @@ namespace HomeWorkTask1
             }
         }
 
-        //Select a phrase for the language
+        
+
         private static int SelectPhrase(Languages language)
         {
             Console.WriteLine("Select a phrase to translate:");
@@ -121,7 +122,7 @@ namespace HomeWorkTask1
             return selectedPhrase;
         }
 
-        //Translate selected phrase to selected language
+        
         private static void Translate(Languages localLanguage, int phrase, Languages targetLanguage)
         {
             Dictionary localPhrase = null, targetPhrase = null;
